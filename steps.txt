@@ -1,0 +1,69 @@
+
+Clean up
+
+ export PATH=/home/cibilan/projects/fabric-samples/bin:$PATH
+
+docker containers
+	docker rm -f $(docker ps -aq)
+	docker network prune
+
+		rm -rf /tmp/hfc-*
+		rm -rf ~/.hfc-key-store
+
+git
+	git add -all
+	git commit -m "a message"
+	git push
+
+
+bin path
+	export PATH=/home/cibilan/projects/hyperLedger/fabric-samples/bin/:$PATH
+
+Install go
+	sudo apt-get update
+	sudo apt-get -y upgrade
+	wget https://dl.google.com/go/go1.9.1.linux-amd64.tar.gz
+	sudo tar -xvf go1.9.1.linux-amd64.tar.gz
+
+
+	export GOROOT=$HOME/go
+	export GOPATH=$HOME/projects
+	export PATH=$PATH:$GOROOT/bin
+
+	
+	go get -u --tags nopkcs11 github.com/hyperledger/fabric/core/chaincode/shim
+	go build --tags nopkcs11
+	sudo apt install libtool libltdl-dev
+
+chaincode
+
+	docker-compose -f docker-compose-simple.yaml up
+	docker exec -it chaincode bash
+	cd mycontract
+	go build
+	CORE_PEER_ADDRESS=peer:7052 CORE_CHAINCODE_ID_NAME=mycc:0 ./mycontract
+
+	docker run -it hyperledger/fabric-peer bash
+
+	docker exec -it cli bash
+
+	docker logs -f peer 
+
+	peer chaincode install -p chaincodedev/chaincode/mycontract -n mycc -v 0
+	peer chaincode instantiate -n mycc -v 0 -c '{"Args":[""]}' -C myc
+
+
+	peer chaincode invoke -n mycc -c '{"Args":["initLedger"]}' -C myc
+
+	peer chaincode invoke -n mycc -c '{"Args":["queryAllCon"]}' -C myc
+
+	peer chaincode invoke -n mycc -c '{"Args":["queryCon","CON4"]}' -C myc  
+
+	peer chaincode invoke -n mycc -c '{"Args":["addCon","CON5","User2", "1504054225", "sample contarct"]}' -C myc
+
+	peer chaincode invoke -n mycc -c '{"Args":["addParty","CON5", "User2", "false"]}' -C myc 
+
+	peer chaincode invoke -n mycc -c '{"Args":["conAct","CON4", "2"]}' -C myc 
+
+
+	peer chaincode invoke -n mycc -c '{"Args":["conSign","CON4", "User1"]}' -C myc 

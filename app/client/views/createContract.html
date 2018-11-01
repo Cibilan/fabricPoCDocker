@@ -1,0 +1,28 @@
+<md-dialog aria-label="New Contract">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Create New Contract</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+        <md-content layout-padding>
+      <md-input-container class="md-block">
+          <label>Contract ID</label>
+          <input ng-model="newCon.id" />
+      </md-input-container>
+      <md-input-container class="md-block">
+          <label> Contract Details</label>
+          <input ng-model="newCon.detail" />
+      </md-input-container>
+    </md-content>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row" layout-align="space-between center">
+        <h5 style="color:green;margin-bottom:2%"> {{new_Con_Success}}</h5>
+      <md-button ng-click="addCon1()" class="md-raised md-primary md-hue-1"> Add Contract </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
